@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Dept.xml 在com.tarena.entity 包中  -->  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="cn.tedu.cloud_note.dao.NoteDao" >
+	<select id="findByBookId" parameterType="String" resultType="Map" >
+		SELECT cn_note_id,cn_note_title FROM cn_note
+		WHERE cn_notebook_id=#{bookId} AND cn_note_status_id='1'
+		ORDER BY cn_note_create_time DESC;
+	</select>
+	
+	<select id="findByNoteId" parameterType="String" resultType="cn.tedu.cloud_note.entity.Note">
+		SELECT * FROM cn_note
+		WHERE cn_note_id=#{noteId} 
+	</select>
+	<update id="updataNote" parameterType="cn.tedu.cloud_note.entity.Note">
+		UPDATE cn_note
+		SET cn_note_title=#{cn_note_title},cn_note_body=#{cn_note_body},cn_note_last_modify_time=#{cn_note_last_modify_time}
+		WHERE cn_note_id =#{cn_note_id}
+	</update>
+	<insert id="insertNote" parameterType="cn.tedu.cloud_note.entity.Note">
+		INSERT INTO cn_note
+		VALUES(#{cn_note_id},#{cn_notebook_id},#{cn_user_id},
+				#{cn_note_status_id},#{cn_note_type_id},#{cn_note_title},
+				#{cn_note_body},#{cn_note_create_time},#{cn_note_last_modify_time})
+	</insert>
+	<update id="changeNoteStatus" parameterType="String">
+		UPDATE cn_note
+		SET cn_note_status_id=#{statusId}
+		WHERE cn_note_id =#{noteId}
+	</update>
+</mapper>
+
+
+
+
+

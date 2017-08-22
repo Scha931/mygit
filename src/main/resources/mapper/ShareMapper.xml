@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Dept.xml 在com.tarena.entity 包中  -->  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.cloud_note.dao.ShareDao">
+	<insert id="save" parameterType="cn.tedu.cloud_note.entity.Share">
+		INSERT INTO cn_share
+		VALUES(#{cn_share_id},#{cn_share_title},#{cn_share_body},#{cn_note_id})
+	</insert>
+	<select id="findShareIdByNoteId" parameterType="String" resultType="Map">
+		SELECT cn_note_id,cn_share_id
+		FROM cn_share
+		WHERE cn_note_id=#{noteId}
+	</select>
+	<select id="findShareBysearch" parameterType="Map" resultType="cn.tedu.cloud_note.entity.Share">
+		SELECT * FROM cn_share 
+		WHERE cn_share_title LIKE #{title} 	LIMIT #{page},3
+	</select>
+</mapper>
+
+
+
+
